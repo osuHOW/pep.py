@@ -140,14 +140,6 @@ def handle(tornadoRequest):
 			responseToken.enqueue(serverPackets.notification("Thank you for providing a liveplay! You have proven your legitemacy and have subsequently been unfrozen. Have fun playing RealistikOsu!"))
 			glob.db.execute(f"UPDATE users SET firstloginafterfrozen = 0 WHERE id = {userID}")
 
-		# Send message if donor expires soon
-		if responseToken.privileges & privileges.USER_DONOR:
-			expireDate = userUtils.getDonorExpire(responseToken.userID)
-			if expireDate-int(time.time()) <= 86400*3:
-				expireDays = round((expireDate-int(time.time()))/86400)
-				expireIn = "{} days".format(expireDays) if expireDays > 1 else "less than 24 hours"
-				responseToken.enqueue(serverPackets.notification("Your supporter status expires in {}! Following this, you will lose your supporter privileges (such as the further profile customisation options, name changes or profile wipes) and will not be able to access supporter features. If you wish to keep supporting RealistikOsu and you don't want to lose your donor privileges, you can donate again by clicking on 'Donate' on our website.".format(expireIn)))
-
 		# Deprecate telegram 2fa and send alert
 		#if userUtils.deprecateTelegram2Fa(userID):
 		#	responseToken.enqueue(serverPackets.notification("As stated on our blog, Telegram 2FA has been deprecated on 29th June 2018. Telegram 2FA has just been disabled from your account. If you want to keep your account secure with 2FA, please enable TOTP-based 2FA from our website https://ripple.moe. Thank you for your patience."))
@@ -193,6 +185,8 @@ def handle(tornadoRequest):
 				# We are mod/admin, send warning notification and continue
 				responseToken.enqueue(serverPackets.notification("Bancho is in maintenance mode. Only mods/admins have full access to the server.\nType !system maintenance off in chat to turn off maintenance mode."))
 
+
+
 		# BAN CUSTOM CHEAT CLIENTS
 		# 0Ainu = First Ainu build
 		# b20190326.2 = Ainu build 2 (MPGH PAGE 10)
@@ -237,6 +231,10 @@ def handle(tornadoRequest):
 					glob.tokens.deleteToken(userID)
 					userUtils.restrict(userID)
 					raise exceptions.loginCheatClientsException()
+
+			if aobaHelper.getOsuVer(userID) < "b20201210.2":
+				log.info(f"Account {userID} is using an old client!")
+				responseToken.enqueue(serverPackets.notification("You are currently signed in with an older client. Please be aware that there is currently a bug causing scores submitted with older clients to fail."))
 
 		# Send all needed login packets
 		responseToken.enqueue(serverPackets.silenceEndTime(silenceSeconds))
@@ -340,7 +338,7 @@ def handle(tornadoRequest):
 		# Using oldoldold client, we don't have client data. Force update.
 		# (we don't use enqueue because we don't have a token since login has failed)
 		responseData += serverPackets.forceUpdate()
-		responseData += serverPackets.notification("Hory shitto, your client is TOO old! Nice prehistory! Please turn update it from the settings!")
+		responseData += serverPackets.notification("stop no plz update lol")
 	except:
 		log.error("Unknown error!\n```\n{}\n{}```".format(sys.exc_info(), traceback.format_exc()))
 	finally:
