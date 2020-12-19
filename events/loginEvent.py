@@ -232,10 +232,6 @@ def handle(tornadoRequest):
 					userUtils.restrict(userID)
 					raise exceptions.loginCheatClientsException()
 
-			if aobaHelper.getOsuVer(userID) < "b20201210.2":
-				log.info(f"Account {userID} is using an old client!")
-				responseToken.enqueue(serverPackets.notification("You are currently signed in with an older client. Please be aware that there is currently a bug causing scores submitted with older clients to fail."))
-
 		# Send all needed login packets
 		responseToken.enqueue(serverPackets.silenceEndTime(silenceSeconds))
 		responseToken.enqueue(serverPackets.userID(userID))
