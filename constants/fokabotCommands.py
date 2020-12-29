@@ -73,17 +73,17 @@ def instantRestart(fro, chan, message):
 def faq(fro, chan, message):
 	# TODO: Unhardcode this
 	messages = {
-		"rules": "Please make sure to check (RealistikOsu! rules)[https://ussr.pl/doc/rules].",
+		"rules": "Please make sure to check (osuHOW rules)[https://osuhow.tk/doc/rules].",
 		"swearing": "Please don't abuse swearing",
 		"spam": "Please don't spam",
 		"offend": "Please don't offend other players",
-		"github": "(RealistikOsu! Github page!)[https://github.com/RealistikOsu]",
-		"discord": "(Join RealistikOsu Discord!)[https://discord.gg/87E2K46]",
-		"changelog": "Check our (git repo)[https://github.com/RealistikOsu] for changes!",
+		"github": "(osuHOW Github page!)[https://github.com/osuHOW]",
+		"discord": "(Join osuHOW Discord!)[https://discord.gg/KYWYnYaSpP]",
+		"changelog": "Check our (git repo)[https://github.com/osuHOW] for changes!",
 		"english": "Please keep this channel in english.",
 		"topic": "Can you please drop the topic and talk about something else?",
 		"lines": "Please try to keep your sentences on a single line to avoid getting silenced.",
-		"cheating": "Hacking is not permitted on RealistikOsu! If you spot someone cheating, report them to the staff or RealistikDash."
+		"cheating": "Cheating is not permitted on osuHOW If you spot someone cheating, report them to the staff."
 	}
 	key = message[0].lower()
 	if key not in messages:
@@ -175,7 +175,7 @@ def kick(fro, chan, message):
 def fokabotReconnect(fro, chan, message):
 	# Check if the bot is already connected
 	if glob.tokens.getTokenFromUserID(999) is not None:
-		return "{} is already connected to RealistikOsu!".format(glob.BOT_NAME)
+		return "{} is already connected to osuHOW".format(glob.BOT_NAME)
 
 	# Bot is not connected, connect it
 	fokabot.connect()
@@ -263,7 +263,7 @@ def ban(fro, chan, message):
 	userID = userUtils.getID(fro)
 	if not targetUserID:
 		return "{}: user not found".format(target)
-	if targetUserID in (999, 1000, 1001, 1002, 1005):
+	if targetUserID in (999, 1000, 1001, 1002):
 		return "NO!"
 	# Set allowed to 0
 	userUtils.ban(targetUserID)
@@ -305,7 +305,7 @@ def restrict(fro, chan, message):
 	userID = userUtils.getID(fro)
 	if not targetUserID:
 		return "{}: user not found".format(target)
-	if targetUserID in (999, 1000):
+	if targetUserID in (999, 1000, 1002):
 		return "NO!"
 		
 	# Put this user in restricted mode
@@ -341,7 +341,7 @@ def freeze(fro, chan, message):
 
 	targetToken = glob.tokens.getTokenFromUsername(userUtils.safeUsername(target), safe=True)
 	if targetToken is not None:
-		targetToken.enqueue(serverPackets.notification("You have been frozen! The RealistikOsu staff team has found you suspicious and would like to request a liveplay. Visit ussr.pl for more info."))
+		targetToken.enqueue(serverPackets.notification("You have been frozen! The osuHOW staff team has found you suspicious and would like to request a liveplay. Visit osuHOW.tk for more info."))
 
 	log.rap(userID, "has frozen {}".format(target), True)
 	return "User has been frozen!"
@@ -364,7 +364,7 @@ def unfreeze(fro, chan, message):
 
 	targetToken = glob.tokens.getTokenFromUsername(userUtils.safeUsername(target), safe=True)
 	if targetToken is not None:
-		targetToken.enqueue(serverPackets.notification("Your account has been unfrozen! You have proven your legitemacy. Thank you and have fun playing on RealistikOsu!"))
+		targetToken.enqueue(serverPackets.notification("Your account has been unfrozen! You have proven your legitemacy. Thank you."))
 
 	log.rap(userID, "has unfrozen {}".format(target), True)
 	return "User has been unfrozen!"
@@ -1480,7 +1480,7 @@ def mirror(fro, chan, message):
 
 	if matchID is not None:
 		if matchID not in glob.matches.matches:
-			return "This match doesn't seem to exist... Or does it...?"
+			return "This match doesn't seem to exist."
 		beatmapID = glob.matches.matches[matchID].beatmapID
 	else:
 		spectatorHostToken = glob.tokens.getTokenFromUserID(spectatorHostUserID, ignoreIRC=True)
@@ -1524,7 +1524,7 @@ commands = [
 		"callback": report
 	}, {
 		"trigger": "!help",
-		"response": "Click (here)[https://ussr.pl/doc/4] for full command list"
+		"response": "Click (here)[https://osuhow.tk/doc/4] for full command list"
 	}, {
 		"trigger": "!ppboard",
 		"syntax": "<relax/vanilla>",
@@ -1626,17 +1626,17 @@ commands = [
 	}, {
 		"trigger": "!restrict",
 		"syntax": "<target>",
-		"privileges": privileges.ADMIN_BAN_USERS,
+		"privileges": privileges.ADMIN_SILENCE_USERS,
 		"callback": restrict
 	}, {
 		"trigger": "!freeze",
 		"syntax": "<target>",
-		"privileges": privileges.ADMIN_MANAGE_USERS,
+		"privileges": privileges.ADMIN_SILENCE_USERS,
 		"callback": freeze
 	}, {
 		"trigger": "!unfreeze",
 		"syntax": "<target>",
-		"privileges": privileges.ADMIN_MANAGE_USERS,
+		"privileges": privileges.ADMIN_SILENCE_USERS,
 		"callback": unfreeze
 	},
 	{
@@ -1688,7 +1688,7 @@ commands = [
 		"callback": switchServer
 	}, {
 		"trigger": "!rtx",
-		"privileges": privileges.ADMIN_MANAGE_USERS,
+		"privileges": privileges.ADMIN_SILENCE_USERS,
 		"syntax": "<username> <message>",
 		"callback": rtx
 	}, {

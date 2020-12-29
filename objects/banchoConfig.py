@@ -10,7 +10,7 @@ class banchoConfig:
 	Class that loads settings from bancho_settings db table
 	"""
 
-	config = {"banchoMaintenance": False, "freeDirect": True, "menuIcon": "", "loginNotification": ""}
+	config = {"banchoMaintenance": False, "freeDirect": True, "menuIcon": "https://i.imgur.com/KICHpcy.png", "loginNotification": ""}
 
 	def __init__(self, loadFromDB = True):
 		"""
@@ -35,15 +35,11 @@ class banchoConfig:
 		if mainMenuIcon is None:
 			self.config["menuIcon"] = ""
 		else:
-			imageURL = "https://i.ppy.sh/{}.png".format(mainMenuIcon["file_id"])
-			self.config["menuIcon"] = "{}|{}".format(imageURL, mainMenuIcon["url"])
+			imageURL = "".format(mainMenuIcon["file_id"])
+			self.config["menuIcon"] = "".format(imageURL, mainMenuIcon["url"])
 		#self.config["loginNotification"] = glob.db.fetch("SELECT value_string FROM bancho_settings WHERE name = 'login_notification'")["value_string"]
 		self.config["Quotes"] = [
-			"Don't forget to visit c.ussr.pl!",
-			"WE SERVE THE SOVIET UNION!",
-			"Ran by best VEVO channel!",
-			"Stay home!",
-			"Spelchecked!"
+			"Welcome to osuHOW!"
 		]
 
 

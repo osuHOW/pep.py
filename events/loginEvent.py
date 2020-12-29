@@ -128,16 +128,16 @@ def handle(tornadoRequest):
 		date3 = present.strftime('%d/%m/%Y')
 		passed = date2 < date3
 		if frozen and passed == False:
-				responseToken.enqueue(serverPackets.notification(f"The RealistikOsu staff team has found you suspicious and would like to request a liveplay. You have until {readabledate} (UTC) to provide a liveplay to the staff team. This can be done via the RealistikCentral Discord server. Failure to provide a valid liveplay will result in your account being automatically restricted."))
+				responseToken.enqueue(serverPackets.notification(f"The osuHOW staff team has found you suspicious and would like to request a liveplay. You have until {readabledate} (UTC) to provide a liveplay to the staff team. This can be done via the osuHOW Discord server. Failure to provide a valid liveplay will result in your account being automatically restricted."))
 		elif frozen and passed == True:
-				responseToken.enqueue(serverPackets.notification("Your window for liveplay sumbission has expired! Your account has been restricted as per our cheating policy. Please contact staff for more information on what can be done. This can be done via the RealistikCentral Discord server."))
+				responseToken.enqueue(serverPackets.notification("Your window for liveplay sumbission has expired! Your account has been restricted as per our cheating policy. Please contact staff for more information on what can be done. This can be done via the osuHOW Discord server."))
 				userUtils.restrict(responseToken.userID)
 
 		#we thank unfrozen people
 		first = IsFrozen["firstloginafterfrozen"]
 		
 		if not frozen and first:
-			responseToken.enqueue(serverPackets.notification("Thank you for providing a liveplay! You have proven your legitemacy and have subsequently been unfrozen. Have fun playing RealistikOsu!"))
+			responseToken.enqueue(serverPackets.notification("Thank you for providing a liveplay! You have proven your legitemacy and have subsequently been unfrozen."))
 			glob.db.execute(f"UPDATE users SET firstloginafterfrozen = 0 WHERE id = {userID}")
 
 		# Deprecate telegram 2fa and send alert
@@ -198,7 +198,7 @@ def handle(tornadoRequest):
 			if tornadoRequest.request.headers.get("ainu") == "happy":
 				log.info(f"Account {userID} tried to use Ainu Client 2020!")
 				if userUtils.isRestricted(userID):
-					responseToken.enqueue(serverPackets.notification("Ainu client... Really? Welp enjoy your ban! -Realistik"))
+					responseToken.enqueue(serverPackets.notification("Ainu client... Really? Welp enjoy your ban!"))
 				else:
 					glob.tokens.deleteToken(userID)
 					userUtils.restrict(userID)
@@ -207,7 +207,7 @@ def handle(tornadoRequest):
 			elif aobaHelper.getOsuVer(userID) in ["0Ainu", "b20190326.2", "b20190401.22f56c084ba339eefd9c7ca4335e246f80", "b20191223.3"]:
 				log.info(f"Account {userID} tried to use Ainu Client!")
 				if userUtils.isRestricted(userID):
-					responseToken.enqueue(serverPackets.notification("Ainu client... Really? Welp enjoy your ban! -Realistik"))
+					responseToken.enqueue(serverPackets.notification("Ainu client... Really? Welp enjoy your ban!"))
 				else:
 					glob.tokens.deleteToken(userID)
 					userUtils.restrict(userID)
@@ -216,7 +216,7 @@ def handle(tornadoRequest):
 			elif aobaHelper.getOsuVer(userID) == "b20190226.2":
 				log.info(f"Account {userID} tried to use hqOsu!")
 				if userUtils.isRestricted(userID):
-					responseToken.enqueue(serverPackets.notification("Trying to use hqOsu in here? Well... No, sorry. We don't allow cheats here. Go play on Aminosu."))
+					responseToken.enqueue(serverPackets.notification("Trying to use hqOsu in here? lol bye."))
 				else:
 					glob.tokens.deleteToken(userID)
 					userUtils.restrict(userID)

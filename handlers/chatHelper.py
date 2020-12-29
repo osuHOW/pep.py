@@ -198,7 +198,6 @@ def sendMessage(fro = "", to = "", message = "", token = None, toIRC = True):
 			"nigger", #ah the classic
 			"nigga",
 			"coon",
-			"cracker",
 			## GERMAN ##
 			"hurensohn",
 			## RUSSIAN ##

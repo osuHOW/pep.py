@@ -20,7 +20,7 @@ def connect():
 	glob.BOT_NAME = userUtils.getUsername(999)
 	token = glob.tokens.addToken(999)
 	token.actionID = actions.IDLE
-	token.actionText = "\nWelcome to RealistikOsu!"
+	token.actionText = "\nWelcome to osuHOW"
 	token.pp = 69
 	token.accuracy = 0.69
 	token.playcount = 69

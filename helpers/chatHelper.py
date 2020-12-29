@@ -1,7 +1,6 @@
 from common.log import logUtils as log
 from common.ripple import userUtils
 from constants import exceptions
-from constants import messageTemplates
 from constants import serverPackets
 from events import logoutEvent
 from objects import fokabot
@@ -266,10 +265,6 @@ def sendMessage(fro = "", to = "", message = "", token = None, toIRC = True):
 			# Away check
 			if recipientToken.awayCheck(token.userID):
 				sendMessage(to, fro, "\x01ACTION is away: {}\x01".format(recipientToken.awayMessage))
-
-			# Check message templates (mods/admins only)
-			if message in messageTemplates.templates and token.admin:
-				sendMessage(fro, to, messageTemplates.templates[message])
 
 			# Everything seems fine, send packet
 			recipientToken.enqueue(packet)
