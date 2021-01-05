@@ -9,16 +9,15 @@ def printServerStartHeader(asciiArt=True):
 	:return:
 	"""
 	if asciiArt:
-		printColored(r""" ______   ______   ______       ______   __  __    
-/_____/\ /_____/\ /_____/\     /_____/\ /_/\/_/\   
-\:::_ \ \\::::_\/_\:::_ \ \    \:::_ \ \\ \ \ \ \  
- \:(_) \ \\:\/___/\\:(_) \ \ ___\:(_) \ \\:\_\ \ \ 
-  \: ___\/ \::___\/_\: ___\//__/\\: ___\/ \::::_\/ 
-   \ \ \    \:\____/\\ \ \  \::\ \\ \ \     \::\ \ 
-    \_\/     \_____\/ \_\/   \:_\/ \_\/      \__\/ """,bcolors.GREEN)
+		printColored(r"""                    __  ______ _       __
+  ____  _______  __/ / / / __ \ |     / /
+ / __ \/ ___/ / / / /_/ / / / / | /| / / 
+/ /_/ (__  ) /_/ / __  / /_/ /| |/ |/ /  
+\____/____/\__,_/_/ /_/\____/ |__/|__/   
+                                         """,bcolors.GREEN)
 
-	printColored(f"# PEP.PY - The RealistikOsu! Bancho emulator.", bcolors.BLUE)
-	printColored(f"# This is a fork of the now deprecated pep.py by the Ripple Team.", bcolors.BLUE)
+	printColored(f"# PEP.PY - The osuHOW Bancho emulator.", bcolors.BLUE)
+	printColored(f"# This is a fork of the pep.py by realistikosu which is a fork of the now deprecated pep.py by the Ripple Team.", bcolors.BLUE)
 
 def printNoNl(string):
 	"""

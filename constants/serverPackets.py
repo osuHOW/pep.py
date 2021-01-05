@@ -27,13 +27,6 @@ def loginLocked():
 def loginError():
 	return packetHelper.buildPacket(packetIDs.server_userID, [[-5, dataTypes.SINT32]])
 
-def loginCheats():
-	message = "BOT Chet spotted!"
-	packets = packetHelper.buildPacket(packetIDs.server_userID, [[-1, dataTypes.SINT32]])
-	packets += packetHelper.buildPacket(0x69, [[message, dataTypes.STRING]])
-	packets += notification("We don't like cheaters here at RealistikOsu! Consider yourself restricted.")
-	return packets
-
 def needSupporter():
 	return packetHelper.buildPacket(packetIDs.server_userID, [[-6, dataTypes.SINT32]])
 

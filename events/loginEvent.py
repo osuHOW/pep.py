@@ -204,33 +204,23 @@ def handle(tornadoRequest):
 					userUtils.restrict(userID)
 					raise exceptions.loginCheatClientsException()
 			# Ainu Client 2019
-			elif aobaHelper.getOsuVer(userID) in ["0Ainu", "b20190326.2", "b20190401.22f56c084ba339eefd9c7ca4335e246f80", "b20191223.3"]:
-				log.info(f"Account {userID} tried to use Ainu Client!")
+			elif aobaHelper.getOsuVer(userID) in ["0Ainu"]:
+				log.info(f"Account {userID} tried to use 0Ainu Client!")
 				if userUtils.isRestricted(userID):
 					responseToken.enqueue(serverPackets.notification("Ainu client... Really? Welp enjoy your ban!"))
 				else:
 					glob.tokens.deleteToken(userID)
 					userUtils.restrict(userID)
 					raise exceptions.loginCheatClientsException()
+			elif aobaHelper.getOsuVer(userID) in ["b20190326.2", "b20190401.22f56c084ba339eefd9c7ca4335e246f80", "b20191223.3"]:
+				log.info(f"Account {userID} tried to use 1Ainu Client!")
 			# hqOsu
 			elif aobaHelper.getOsuVer(userID) == "b20190226.2":
-				log.info(f"Account {userID} tried to use hqOsu!")
-				if userUtils.isRestricted(userID):
-					responseToken.enqueue(serverPackets.notification("Trying to use hqOsu in here? lol bye."))
-				else:
-					glob.tokens.deleteToken(userID)
-					userUtils.restrict(userID)
-					raise exceptions.loginCheatClientsException()
+				log.info(f"Account {userID} is using hqosu")
 			
 			#hqosu legacy
 			elif aobaHelper.getOsuVer(userID) == "b20190716.5":
-				log.info(f"Account {userID} tried to use hqOsu legacy!")
-				if userUtils.isRestricted(userID):
-					responseToken.enqueue(serverPackets.notification("Trying to play with HQOsu Legacy? Cute..."))
-				else:
-					glob.tokens.deleteToken(userID)
-					userUtils.restrict(userID)
-					raise exceptions.loginCheatClientsException()
+				log.info(f"Account {userID} is using hqosu legacy")
 
 		# Send all needed login packets
 		responseToken.enqueue(serverPackets.silenceEndTime(silenceSeconds))

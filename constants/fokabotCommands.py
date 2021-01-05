@@ -1501,6 +1501,8 @@ def crashuser(fro, chan, message):
 		return "bruh they literally dont exist"
 	targetToken.enqueue(serverPackets.crash())
 	return ":^)"
+def customstatus(message):
+	return "Your custom status has been set."
 	
 """
 Commands list
@@ -1644,6 +1646,11 @@ commands = [
 		"syntax" : "<target>",
 		"privileges": privileges.ADMIN_MANAGE_USERS,
 		"callback": crashuser
+	},
+	{
+		"trigger" : "!customstatus",
+		"syntax" : "<message>",
+		"callback": customstatus
 	},
 	{
 		"trigger": "!unrestrict",
